@@ -2,7 +2,6 @@
 
 echo -e "Some automated steps for QeeqBox projects"
 date > clean-up.logs
-commit="false"
 
 if [[ "$1" == "social-analyzer" ]]; then
     echo "[X] social-analyzer" > clean-up.logs
