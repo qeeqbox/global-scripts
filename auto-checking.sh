@@ -15,12 +15,3 @@ if [[ "$1" == "social-analyzer" ]]; then
     cp -f ./data/sites.json_new ./data/sites.json
     commit="true"
 fi
-
-if [[ "$commit" == "true" ]]; then
-	echo "[X] Committing to GitHub"
-	git config user.name giga-a
-	git config user.email gigaqeeq@gmail.com
-	git add .
-	git commit -m "[auto-a] clean up"
-	git push
-fi
