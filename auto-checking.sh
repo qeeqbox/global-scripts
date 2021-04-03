@@ -15,9 +15,17 @@ if [[ "$1" == "social-analyzer" ]]; then
     echo "[X] done" >> clean-up.logs
 elif [[ "$1" == "honeypots" ]]; then
     echo "[X] honeypots" >> clean-up.logs
-    echo "[X] installing autopep8 & jq" >> clean-up.logs
-    sudo apt-get install -y python3-autopep8 jq
-    echo "[X] running autopep8" >> clean-up.logs
-    autopep8 . --recursive --in-place --max-line-length=10000 --verbose --aggressive --ignore=E402
-    echo "[X] done" >> clean-up.logs
+    echo "[X] installing python3, python3-pip, autopep8 & jq" >> clean-up.logs
+    sudo apt-get install -y python3 python3-pip python3-autopep8 jq
+    echo "[X] checking the pip package" >> clean-up.logs
+    pip3 install .
+    if python3 -m honeypots list | grep -q 'dns'; then
+        echo "good package"
+        echo "[X] running autopep8" >> clean-up.logs
+        autopep8 . --recursive --in-place --max-line-length=10000 --verbose --aggressive --ignore=E402
+        echo "[X] done" >> clean-up.logs
+
+    else
+        exit 1
+    fi
 fi
