@@ -21,7 +21,6 @@ elif [[ "$1" == "honeypots" ]]; then
     pip3 install .
     temp_value=$(python3 -m honeypots list)
     find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
-    exit 1
     if echo "$temp_value" | grep -q 'dns'; then
         echo "good package"
         echo "[X] running autopep8" >> clean-up.logs
