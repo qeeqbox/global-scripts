@@ -17,17 +17,24 @@ elif [[ "$1" == "honeypots" ]]; then
     echo "[X] honeypots" >> clean-up.logs
     echo "[X] installing python3, python3-pip, autopep8 & jq" >> clean-up.logs
     sudo apt-get install -y python3 python3-pip python3-autopep8 jq
+    echo "[X] installing the pip package" >> clean-up.logs
+    cwd=$(pwd)
+    mkdir -p /tmp/test
+    cp -r . /tmp/test/
+    ls /tmp/test
+    pip3 install /tmp/test
     echo "[X] checking the pip package" >> clean-up.logs
-    pip3 install .
     temp_value=$(python3 -m honeypots list)
+    echo "[X] delete " >> clean-up.logs
     find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
     if echo "$temp_value" | grep -q 'dns'; then
-        echo "good package"
+        echo "[X] good package"
         echo "[X] running autopep8" >> clean-up.logs
         autopep8 . --recursive --in-place --max-line-length=10000 --verbose --aggressive --ignore=E402
         echo "[X] done" >> clean-up.logs
 
     else
+        echo "[X] bad package"
         exit 1
     fi
 fi
