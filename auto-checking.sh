@@ -22,7 +22,7 @@ elif [[ "$1" == "honeypots" ]]; then
     cp -r . /tmp/test/
     pip3 install /tmp/test
     echo "[X] checking the pip package" >> clean-up.logs
-    temp_value=$(python3 -m honeypots list)
+    temp_value=$(python3 -m honeypots --list)
     echo "[X] delete " >> clean-up.logs
     find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
     if echo "$temp_value" | grep -q 'dns'; then
